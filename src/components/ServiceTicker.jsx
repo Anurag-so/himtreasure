@@ -1,5 +1,5 @@
 import React from 'react';
-import '../Index.css'; // Import the merged CSS file
+// import '../Index.css'; 
 
 const ServiceTicker = () => {
     // The content for your continuously moving strap
