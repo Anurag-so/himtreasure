@@ -1,0 +1,311 @@
+/* General Body Reset & Global Styles */
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif; /* Use a font similar to the screenshot if available */
+  color: #333333;
+  line-height: 1.6;
+  background-color: #f8faff; /* Light background to match overall page */
+  overflow-x: hidden; /* Prevent horizontal scroll from any overflow */
+}
+
+/* Page container for overall layout control */
+.web-design-page {
+  /* This ensures content starts below the fixed navbar */
+  padding-top: 70px; /* Adjust based on your Navbar's height */
+}
+
+/* Reusable Container for Content Width */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px; /* Horizontal padding for smaller screens */
+}
+
+/* Hero Section */
+.hero-section {
+  position: relative;
+  background: linear-gradient(to right, #e0f2f7, #f0f8ff); /* Light blue gradient background */
+  padding: 100px 0;
+  min-height: 450px; /* Adjust height based on screenshot */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden; /* Important to contain the absolutely positioned shape */
+}
+
+.hero-background-shape {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* This div will contain the large abstract shape image/SVG */
+  /* Ensure your SVG/image for the shape is correctly placed and sized */
+  /* Example using an SVG image, adjust path */
+}
+
+.hero-background-shape .abstract-shape-img {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%); /* Center vertically */
+  width: 50%; /* Adjust size based on how much it fills the hero */
+  height: auto;
+  opacity: 0.8; /* Slight transparency as seen in screenshot */
+  z-index: 0; /* Behind the content */
+}
+
+
+.hero-content {
+  position: relative; /* Ensure text is above the shape */
+  z-index: 1;
+}
+
+.hero-tagline {
+  font-size: 1.2em;
+  color: #666666; /* Grey color */
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.hero-section h1 {
+  font-size: 3.8em; /* Large heading size */
+  color: #0d47a1; /* Darker blue, closer to screenshot */
+  margin: 0;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+/* Introduction Section */
+.intro-section {
+  padding: 80px 0;
+  background-color: #ffffff; /* White background */
+}
+
+.intro-container {
+  display: flex;
+  align-items: center;
+  gap: 60px; /* Increased gap for better spacing */
+}
+
+.intro-content {
+  flex: 1; /* Takes up available space */
+  line-height: 1.8;
+  font-size: 1.05em;
+  color: #555555;
+}
+
+.intro-image {
+  flex: 0 0 450px; /* Fixed width for the image column, adjust as needed */
+  text-align: center;
+}
+
+.intro-image img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Value Proposition / Services Section */
+.services-section {
+  padding: 100px 0;
+  background-color: #f8faff; /* Light background, matching body */
+  text-align: center;
+}
+
+.services-header {
+  margin-bottom: 60px;
+}
+
+.services-heading {
+  font-size: 2.8em; /* Large heading for this section */
+  color: #333333;
+  margin-bottom: 20px;
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+.services-subheading {
+  font-size: 1.1em;
+  color: #666666;
+  max-width: 800px;
+  margin: 0 auto; /* Center align */
+  line-height: 1.7;
+}
+
+.services-cards {
+  display: flex;
+  justify-content: center;
+  gap: 30px; /* Space between cards */
+  flex-wrap: wrap; /* Allow cards to wrap on smaller screens */
+}
+
+.service-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); /* More pronounced shadow */
+  flex: 0 0 calc(33.333% - 20px); /* Three cards per row with gap, adjust as needed */
+  max-width: 380px; /* Max width for individual card */
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-8px); /* More noticeable lift on hover */
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
+}
+
+.service-icon {
+  width: 90px;
+  height: 90px;
+  background-color: #f3e5f5; /* Light purple background for icon */
+  border-radius: 50%;
+  margin: 0 auto 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* You might need to adjust based on your actual icon's colors */
+}
+
+.service-icon img {
+  width: 55px; /* Adjust icon size */
+  height: 55px;
+}
+
+.service-card h3 {
+  font-size: 1.6em;
+  color: #333333;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.service-card p {
+  font-size: 1em;
+  color: #666666;
+  line-height: 1.7;
+}
+
+/* Floating WhatsApp Icon */
+.whatsapp-float-icon {
+  position: fixed; /* Fixed relative to the viewport */
+  bottom: 25px; /* Adjust position */
+  right: 25px; /* Adjust position */
+  z-index: 1000; /* Ensure it's above other content */
+}
+
+.whatsapp-float-icon img {
+  width: 65px; /* Slightly larger icon */
+  height: 65px;
+  border-radius: 50%;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Stronger shadow */
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.whatsapp-float-icon img:hover {
+  transform: scale(1.08); /* Slightly more prominent hover effect */
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+  .hero-section h1 {
+    font-size: 3.2em;
+  }
+  .intro-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  .intro-image {
+    order: -1; /* Image appears above text on smaller screens */
+    margin-bottom: 30px;
+    flex: none; /* Remove flex sizing */
+  }
+}
+
+@media (max-width: 992px) {
+  .hero-section {
+    padding: 80px 0;
+    min-height: 350px;
+  }
+  .hero-section h1 {
+    font-size: 2.8em;
+  }
+  .hero-tagline {
+    font-size: 1.1em;
+  }
+  .services-heading {
+    font-size: 2.2em;
+  }
+  .services-cards {
+    flex-direction: column; /* Stack cards vertically */
+    align-items: center;
+  }
+  .service-card {
+    flex: 0 0 90%; /* Take more width on smaller screens */
+    max-width: 450px; /* Allow wider cards when stacked */
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-links {
+    display: none; /* Hide navigation links on small screens */
+  }
+  .navbar-cta {
+    padding: 8px 15px; /* Smaller button */
+    font-size: 14px;
+  }
+  .navbar-logo img {
+    height: 35px; /* Smaller logo */
+  }
+  .web-design-page {
+    padding-top: 60px; /* Adjust for potentially smaller navbar */
+  }
+  .hero-section h1 {
+    font-size: 2.2em;
+  }
+  .hero-tagline {
+    font-size: 1em;
+  }
+  .intro-section, .services-section {
+    padding: 60px 0;
+  }
+  .services-heading {
+    font-size: 1.8em;
+  }
+  .services-subheading {
+    font-size: 0.95em;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 10px 15px;
+  }
+  .hero-section {
+    padding: 60px 0;
+    min-height: 300px;
+  }
+  .hero-section h1 {
+    font-size: 1.8em;
+  }
+  .hero-tagline {
+    font-size: 0.9em;
+  }
+  .intro-image img {
+    max-width: 90%; /* Ensure image fits well */
+  }
+  .service-card {
+    padding: 25px;
+  }
+  .service-icon {
+    width: 70px;
+    height: 70px;
+  }
+  .service-icon img {
+    width: 45px;
+    height: 45px;
+  }
+}

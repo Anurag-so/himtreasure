@@ -1,0 +1,2567 @@
+/* Global Styles and Font Imports */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* CRITICAL: Ensures padding and border are included in element's total width/height */
+}
+
+html, body {
+    width: 100%; /* Ensure html and body take full width */
+    height: 100%; /* Ensure html and body take full height of viewport */
+    overflow-x: hidden;
+    margin: 0; /* CRITICAL: Hides horizontal scrollbar */
+    padding: 0;
+    -webkit-transform: none !important;
+    transform: none in !important;
+    /* CRITICAL: Ensure no 'transform' property here, as it breaks position:fixed */
+    /* transform: none; /* If you find a transform, set it to none or remove it */
+}
+
+/* ADD THIS NEW BLOCK (or modify if it exists): */
+#root, .App { /* #root is the default div created by Create React App. .App is your main div. */
+    width: 100%;
+    min-height: 100vh; /* ADD THIS LINE: Ensures it's at least the height of the viewport */
+    display: flex;       /* ADD THIS LINE: Enables flexbox for vertical layout */
+    flex-direction: column; /* ADD THIS LINE: Stacks children vertically (navbar, main, floating buttons) */
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+/* ---------------------------------- */
+/* Navbar Styles                      */
+/* ---------------------------------- */
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 0; /* Adjusted for responsiveness below */
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: sticky; /* Sticky is fine for navbar */
+    top: 0;
+    z-index: 1000; /* Ensure navbar is on top of regular content */
+    width: 100%; /* Ensure it takes full width */
+    box-sizing: border-box; /* Include padding in width */
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-logo img {
+    height: 40px; /* Adjust as needed */
+    margin-right: 10px;
+}
+
+.navbar-logo span {
+    font-size: 24px;
+    font-weight: 600;
+    color: #3b3636;
+}
+
+.navbar-nav {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.navbar-links {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-links li {
+    margin: 0 15px;
+}
+
+.navbar-links a {
+    text-decoration: none;
+    color: #555;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 10px 0;
+    transition: color 0.3s ease;
+     display: inline-flex; /* <--- ADD THIS: Use inline-flex for better alignment of text and arrow */
+    align-items: center; 
+}
+
+.navbar-links a:hover {
+    color: #ff6600;
+}
+
+/* Dropdown Menu for Service - Wrapper */
+.navbar-dropdown-wrapper {
+    position: relative; /* CRITICAL: This positions the dropdown-content relative to this li */
+    display: inline-block;
+}
+
+.dropbtn {
+    display: flex;
+    align-items: center;
+    color: #555;
+}
+
+.dropbtn .arrow {
+    border: solid #555;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    margin-left: 5px;
+    transition: transform 0.3s ease;
+}
+
+.dropbtn .arrow.up {
+    transform: rotate(-135deg);
+}
+
+/* Let's Chat Button */
+.chat-button {
+    background-color: #ff6600;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    margin-left: 30px;
+       flex-shrink: 0;
+}
+
+.chat-button:hover {
+    background-color: #e65c00;
+}
+
+/* ---------------------------------- */
+/* Dropdown Styles                    */
+/* ---------------------------------- */
+.dropdown-content {
+    display: none; /* CRITICAL: Hidden by default */
+    position: absolute; /* Positioned relative to .navbar-dropdown-wrapper */
+    background-color: #fff;
+    min-width: 700px; /* This might be too wide for smaller screens, adjust in media queries */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 10; /* Higher than regular content, but lower than floating buttons */
+    padding: 20px;
+    border-radius: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 100%;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 30px;
+    animation: fadeIn 0.3s ease-out;
+    box-sizing: border-box; /* Ensure padding doesn't add to width */
+}
+
+/* Show dropdown on hover */
+.navbar-dropdown-wrapper:hover .dropdown-content {
+    display: flex; /* CRITICAL: Show on hover */
+}
+
+
+.dropdown-column {
+    display: flex;
+    flex-direction: column;
+    min-width: 150px;
+}
+
+.dropdown-column a {
+    color: #333;
+    padding: 8px 0;
+    text-decoration: none;
+    display: block;
+    font-size: 15px;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, color 0.2s ease, padding-left 0.2s ease;
+}
+
+.dropdown-column a:hover {
+    background-color: #f1f1f1;
+    color: #ff6600;
+    padding-left: 5px;
+}
+
+.dropdown-image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding-left: 20px;
+    position: static; /* Ensure it's not absolutely/fixed positioned */
+    margin: 0;
+    padding-right: 0;
+}
+
+.dropdown-image-container img {
+    max-width: 180px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: block;
+}
+
+/* Fade in animation for dropdown */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -10px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+/* -------------------------------------- */
+/* Hero Section Styles                    */
+/* -------------------------------------- */
+.hero-section {
+    text-align: center;
+    padding: 150px 0; /* Adjusted for responsiveness below */
+    background-size: cover;
+    background-position: center;
+    color: rgb(249, 249, 249);
+    position: relative;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Ensure it takes full width */
+    box-sizing: border-box; /* Include padding in width */
+    flex-grow: 1;
+
+
+background-color: rgba(0, 0, 0, 0.4);
+     background-blend-mode: multiply;
+    background-image: url(https://www.shutterstock.com/shutterstock/photos/2159023891/display_1500/stock-photo-happy-businesspeople-laughing-while-collaborating-on-a-new-project-in-an-office-group-of-diverse-2159023891.jpg);
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+}
+
+.hero-section > * {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-tag {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #ccc;
+    font-weight: 600;
+}
+
+.hero-section h1 {
+    font-size: 3.5em;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    max-width: 900px; /* Allow text to wrap naturally */
+    word-wrap: break-word; /* Break long words */
+}
+
+.hero-description {
+    font-size: 1.1em;
+    max-width: 800px;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+    word-wrap: break-word; /* Break long words */
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.hero-buttons .get-started-button {
+    background-color: #ff6600;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.hero-buttons .get-started-button:hover {
+    background-color: #e65c00;
+    transform: translateY(-2px);
+}
+
+
+
+/* ------------------------------------------------ */
+/* Floating Help Button & WhatsApp Modal Styles     */
+/* ------------------------------------------------ */
+
+.floating-help-wrapper {
+    position: sticky; /* CRITICAL: This ensures it stays fixed to the viewport */
+    bottom: 20px;
+    right: 20px;
+    z-index: 1001; /* CRITICAL: Ensure it's above everything else */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Align child items to the right */
+    gap: 10px; /* Space between help text and buttons, and between buttons */
+    /* No 'position: relative;' here if the modal is also fixed.
+       If the modal is absolute, then this needs to be relative.
+       Given the current App.jsx, the modal is rendered *inside* this wrapper,
+       so this wrapper *must* be relative for the modal to be absolute to it. */
+    /* position: relative; Keep this as relative for the modal's absolute positioning */
+    padding-right: 30px;
+}
+
+/* Container for the "Need Help?" text and the two floating buttons */
+.floating-help {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.help-text {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+    white-space: nowrap;
+    animation: slideInRight 0.5s ease-out;
+}
+
+.whatsapp-button,
+.support-icon-button {
+    width: 55px;
+    height: 55px;
+    background-color: #25D366;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    padding: 0;
+}
+
+.support-icon-button {
+    background-color: #007bff;
+}
+
+.whatsapp-button img,
+.support-icon-button img { /* Apply to both images inside buttons */
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+.whatsapp-button-icon,
+.support-icon-button-icon {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.whatsapp-button:hover,
+.support-icon-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* WhatsApp Modal Content */
+.whatsapp-modal-content {
+    position: sticky; /* Positioned relative to the floating-help-wrapper */
+    bottom: 75px; /* 55px (button height) + 20px (gap) = 75px from bottom of wrapper */
+    right: 0; /* Aligned with the right of the wrapper */
+
+    background-color: #fff;
+    border-radius: 8px;
+    width: 320px;
+    max-width: 320px;
+    min-height: 250px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    animation: slideUpFromBottom 0.3s ease-out forwards;
+    box-sizing: border-box; /* Ensure padding doesn't add to width */
+}
+
+/* New Animation for sliding up from the button */
+@keyframes slideUpFromBottom {
+    from {
+        opacity: 0;
+        transform: translateY(20px); /* Starts slightly below its final position */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0); /* Ends at its calculated 'bottom: 75px' position */
+    }
+}
+
+.whatsapp-modal-header {
+    background-color: #25D366;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1em;
+    font-weight: 600;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.whatsapp-header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.whatsapp-header-icon {
+    width: 25px;
+    height: 25px;
+}
+
+.whatsapp-modal-close-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.whatsapp-modal-close-button img {
+    width: 20px;
+    height: 20px;
+    filter: invert(100%);
+}
+
+.whatsapp-modal-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.whatsapp-modal-intro {
+    font-size: 15px;
+    color: #555;
+    line-height: 1.5;
+}
+
+.whatsapp-highlight {
+    color: #25D366;
+    font-weight: 600;
+}
+
+.whatsapp-modal-reply-time {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 5px;
+}
+
+.whatsapp-support-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    text-decoration: none;
+    color: #333;
+}
+
+.whatsapp-support-card:hover {
+    background-color: #f0f0f0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.whatsapp-support-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+}
+
+.whatsapp-support-card-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #25D366;
+    padding: 5px;
+}
+
+.whatsapp-support-card-chat-icon {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0.7);
+}
+
+/* Animations */
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ---------------------------------- */
+/* Media Queries for Responsiveness   */
+/* ---------------------------------- */
+@media (max-width: 992px) {
+    .navbar-container {
+        padding: 15px 0;
+    }
+    .navbar-links li {
+        margin: 0 10px;
+    }
+    .chat-button {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+    .dropdown-content {
+        min-width: 500px;
+        gap: 15px;
+        padding: 15px;
+    }
+    .dropdown-image-container img {
+        max-width: 120px;
+    }
+
+/* * Services Grid Section */ 
+    .services-grid-section {
+        padding: 60px 30px; /* Adjust padding for tablets */
+        flex-direction: column; /* Stack columns */
+        gap: 30px;
+    }
+    .services-left-column {
+        min-width: unset; /* Remove min-width when stacked */
+        text-align: center; /* Center text content for stacked layout */
+        max-width: 100%; /* Allow it to take full width */
+    }
+    .services-left-column h3 {
+        font-size: 2em; /* Adjust font size for smaller screens */
+    }
+    .services-right-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust grid for smaller screens */
+        gap: 20px;
+        min-width: unset; /* Remove min-width when stacked */
+    }
+  /* Achievements Section */
+    .achievements-section {
+        padding: 60px 30px; /* Adjust padding for tablets */
+        gap: 20px;
+    }
+    .achievements-top-row {
+        flex-direction: column; /* Stack columns for top row on smaller screens */
+        gap: 20px;
+        max-width: 100%; /* Take full width */
+        text-align: center; /* Center text */
+    }
+    .achievements-left-column,
+    .achievements-right-description-column {
+        min-width: unset; /* Remove min-width when stacked */
+        max-width: 100%; /* Take full width */
+        padding-right: 0; /* Remove horizontal padding */
+        padding-left: 0; /* Remove horizontal padding */
+        text-align: center; /* Center text */
+    }
+    .achievements-left-column h3 {
+        font-size: 2em;
+    }
+    .achievements-right-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        min-width: unset;
+        padding: 0 10px; /* Adjust grid padding for tablets */
+    }
+    .achievement-card {
+        padding: 25px;
+    }
+    .achievement-number {
+        font-size: 2.5em;
+    }
+
+     /* Why Choose Us Section */
+    .why-choose-us-section {
+        padding: 60px 30px;
+        flex-direction: column; /* Stack columns */
+        gap: 30px;
+    }
+    .why-choose-us-content-left {
+        min-width: unset;
+        max-width: 100%;
+        text-align: center; /* Center text content for stacked layout */
+        padding-right: 0; /* Remove horizontal padding when stacked */
+    }
+    .why-choose-us-content-left h2 {
+        font-size: 2em;
+    }
+    .why-choose-us-image-right {
+        min-width: unset;
+        max-width: 100%;
+        padding-left: 0; /* Remove horizontal padding when stacked */
+    }
+    .why-choose-us-features-row {
+        flex-direction: column; /* Stack feature cards vertically */
+        gap: 15px;
+        max-width: 350px; /* Constrain features row width for readability */
+        margin: 0 auto 20px; /* Center features row */
+    }
+    .why-choose-us-feature-card {
+        padding: 15px;
+        align-items: center; /* Center content within feature card when stacked */
+        text-align: center;
+    }
+     /* Pricing Section */
+    .pricing-section {
+        padding: 60px 30px;
+        flex-direction: column; /* Stack columns */
+        gap: 30px;
+    }
+    .pricing-left-column {
+        min-width: unset;
+        max-width: 100%;
+        text-align: center; /* Center text content for stacked layout */
+        padding-right: 0; /* Remove horizontal padding when stacked */
+    }
+    .pricing-left-column h2 {
+        font-size: 2em;
+    }
+    .pricing-right-cards {
+        grid-template-columns: 1fr; /* Stack cards vertically on tablets */
+        gap: 20px;
+        min-width: unset;
+        max-width: 400px; /* Constrain width for stacked cards */
+        margin: 0 auto; /* Center the stacked cards */
+        padding-left: 0; /* Remove horizontal padding when stacked */
+    }
+    .pricing-card {
+        padding: 25px;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .navbar-container {
+        padding: 10px 0;
+    }
+    .navbar-nav {
+        display: none;
+    }
+    .chat-button {
+        margin-left: 20px;
+    }
+    .hero-section {
+        padding: 60px 0;
+        min-height: 450px;
+    }
+    .hero-section h1 {
+        font-size: 2.5em;
+    }
+    .hero-description {
+        font-size: 1em;
+        margin-bottom: 30px;
+    }
+    .hero-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .dropdown-content {
+        flex-direction: column;
+        min-width: 90%;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 10px;
+    }
+    .dropdown-image-container {
+        padding-left: 0;
+        margin-top: 15px;
+    }
+    .dropdown-image-container img {
+        max-width: 100%;
+    }
+    /* Adjust modal for smaller screens */
+    .whatsapp-modal-content {
+        width: 90%;
+        max-width: 320px;
+        right: 0%;
+        bottom: 75px;
+    }
+    .floating-help-wrapper {
+        right: 0;
+    }
+
+        /* Services Grid Section */
+    .services-grid-section {
+        padding: 40px 20px; /* Adjust padding for mobile */
+    }
+    .services-right-grid {
+        grid-template-columns: 1fr; /* Single column on very small screens */
+    }
+    .service-card {
+        padding: 25px; /* Slightly less padding for cards on mobile */
+    }
+    .service-card h4 {
+        font-size: 1.3em; /* Adjust card title font size */
+    }
+    .service-card p {
+        font-size: 0.9em; /* Adjust card description font size */
+    }
+/* Achievements Section */
+    .achievements-section {
+        /* padding: 40px 20px; */
+        flex-direction: column;
+        align-items: center;
+    }
+    .achievements-right-grid {
+        grid-template-columns: 1fr; /* Single column on very small screens */
+        padding: 0; /* Remove padding when single column */
+    }
+    .achievement-card {
+        padding: 20px;
+    }
+    .achievement-number {
+        font-size: 2em;
+    }
+    .achievement-description {
+        font-size: 0.9em;
+    }
+    .achievements-left-column h3 {
+        font-size: 1.8em; /* Adjust heading size for mobile */
+    }
+
+     /* Why Choose Us Section */
+    .why-choose-us-section {
+        padding: 40px 20px;
+    }
+    .why-choose-us-content-left h2 {
+        font-size: 1.8em;
+    }
+    .why-choose-us-features-row {
+        max-width: 100%; /* Allow features row to take full width on smaller mobiles */
+    }
+    /* Pricing Section */
+    .pricing-section {
+        padding: 40px 20px;
+    }
+    .pricing-left-column h2 {
+        font-size: 1.8em;
+    }
+    .pricing-right-cards {
+        max-width: 100%; /* Allow full width on mobile */
+    }
+    .pricing-card {
+        padding: 20px;
+    }
+    .plan-title {
+        font-size: 1.3em;
+    }
+    .plan-price {
+        font-size: 1.8em;
+    }
+    .plan-features li {
+        font-size: 0.9em;
+    }
+    .pricing-card-button {
+        font-size: 16px;
+        padding: 12px 25px;
+    }
+}
+
+
+/* Extra small screens (e.g., mobile landscape) */
+@media (max-width: 480px) {
+    .hero-section h1 {
+        font-size: 2em;
+    }
+    .hero-description {
+        font-size: 0.9em;
+    }
+    .whatsapp-modal-content {
+        width: 95%;
+        right: 2.5%;
+    }
+    .floating-help-wrapper {
+        right: 2.5%;
+    }
+      /* Services Grid Section */
+    .services-grid-section {
+        padding: 30px 15px; /* Further adjust padding for extra small screens */
+    }
+    .services-left-column h3 {
+        font-size: 1.8em;
+    }
+    .service-card {
+        padding: 20px;
+    }
+    /* Achievements Section */
+    .achievements-section {
+        padding: 30px 15px;
+    }
+    .achievements-left-column h3 {
+        font-size: 1.6em;
+    }
+    .achievement-number {
+        font-size: 1.8em;
+    }
+    .achievement-description {
+        font-size: 0.8em;
+    }
+       /* Why Choose Us Section */
+    .why-choose-us-section {
+        padding: 30px 15px;
+    }
+    .why-choose-us-content-left h2 {
+        font-size: 1.6em;
+    }
+    /* Pricing Section */
+    .pricing-section {
+        padding: 30px 15px;
+    }
+    .pricing-left-column h2 {
+        font-size: 1.6em;
+    }
+    .plan-price {
+        font-size: 1.6em;
+    }
+}
+
+/* ---------------------------------- */
+/* Service Ticker Styles (NEW)        */
+/* ---------------------------------- */
+.service-ticker-container {
+    width: 100%;
+    background-color: #ff6600; /* Orange background as per image */
+    color: white;
+    padding: 30px 0; /* Vertical padding */
+    overflow: hidden; /* CRITICAL: Hides content outside the container */
+    white-space: nowrap; /* CRITICAL: Prevents text from wrapping */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    font-size: 1.1em;
+    font-weight: 600;
+    position: relative; /* Needed for z-index and potential future positioning */
+    z-index: 999; /* Below navbar, above main content */
+    box-sizing: border-box; /* Include padding in width */
+}
+
+.service-ticker-content {
+    display: inline-block; /* CRITICAL: Allows content to be wider than container */
+    padding-left: 100%; /* Start content off-screen to the right */
+    animation: marquee 30s linear infinite; /* Adjust duration as needed */
+    /* Add transform: none !important; to ensure animation works */
+    -webkit-transform: none !important;
+    transform: translateX(0%);
+}
+
+.ticker-item {
+    display: inline-block; /* Ensure items stay in one line */
+    margin-right: 30px; /* Space between items */
+}
+
+.ticker-separator {
+    color: rgba(255, 255, 255, 0.7); /* Slightly muted separator */
+    font-weight: 400;
+}
+
+/* Marquee Animation */
+@keyframes marquee {
+    0% {
+        -webkit-transform: translateX(0%);
+        transform: translateX(0%);
+    }
+    100% {
+        -webkit-transform: translateX(-100%);
+        transform: translateX(-100%); /* Move content full width to the left */
+    }
+}
+
+
+/* -------------------------------------- */
+/* About Us Section Styles (Man's Image Section) */
+/* -------------------------------------- */
+.about-us-section { /* Styles for the section with the man's image */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 50px;
+    background-color: #f0f2f5;
+    width: 100%;
+    box-sizing: border-box;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.about-us-image-container {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-us-main-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    display: block;
+}
+
+.about-us-content {
+    flex: 1;
+    min-width: 350px;
+    max-width: 600px;
+    text-align: left;
+}
+
+.about-us-tag {
+    color: #888;
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.about-us-content h2 {
+    font-size: 2.5em;
+    color: #333;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    font-family: "Lato", Sans-serif;
+}
+
+.about-us-content .highlight {
+    color: #ff6600;
+}
+
+.about-us-description {
+    font-size: 1em;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.about-us-features {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 30px;
+}
+
+.about-us-features li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 10px;
+    color: #555;
+    font-size: 0.95em;
+    line-height: 1.4;
+}
+
+.about-us-features li::before {
+    content: '\2713';
+    color: #25D366;
+    font-size: 1.2em;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.more-about-button {
+    background-color: #ff6600;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.more-about-button:hover {
+    background-color: #e65c00;
+    transform: translateY(-2px);
+}
+/* -------------------------------------- */
+/* Services Grid Section Styles (NEW)     */
+/* -------------------------------------- */
+.services-grid-section {
+    display: flex; /* Use flexbox for the two main columns */
+    align-items: flex-start; /* Align items to the top */
+    justify-content: center; /* Center content horizontally */
+    padding: 80px 50px; /* Top/bottom padding, horizontal padding for content */
+    background-color: #fff; /* White background as per image */
+    width: 100%;
+    box-sizing: border-box;
+    gap: 40px; /* Space between the left column and the right grid */
+    flex-wrap: wrap; /* Allow columns to wrap on smaller screens */
+}
+
+.services-left-column {
+    flex: 1; /* Allow left column to grow */
+    min-width: 300px; /* Minimum width before wrapping */
+    max-width: 450px; /* Max width for the left column content */
+    text-align: left;
+}
+
+.services-tag {
+    color: #ff6600; /* Orange color for "Services" tag */
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.services-left-column h3 {
+    font-size: 2.5em;
+    color: #333;
+    line-height: 1.2;
+    margin-bottom: 30px;
+}
+
+.services-left-column .highlight {
+    color: #ff6600;
+}
+
+.view-all-services-button {
+    background-color: #ff6600;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.view-all-services-button:hover {
+    background-color: #e65c00;
+    transform: translateY(-2px);
+}
+
+.services-right-grid {
+    flex: 2; /* Allow right grid to grow more */
+    min-width: 500px; /* Minimum width for the grid before wrapping */
+    display: grid; /* Use CSS Grid for the cards */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid columns */
+    gap: 20px; /* Space between grid items */
+}
+
+.service-card {
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.service-card-icon {
+    width: 60px; /* Size of the icon */
+    height: 60px;
+    object-fit: contain;
+    margin-bottom: 20px;
+}
+
+.service-card h4 {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.service-card p {
+    font-size: 0.95em;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    flex-grow: 1; /* Allow description to take available space */
+}
+
+.service-card-arrow-button {
+    background-color: #ff6600; /* Orange background for the arrow button */
+    border-radius: 50%; /* Make it circular */
+    width: 40px; /* Size of the circular button */
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s ease;
+}
+
+.service-card-arrow-button:hover {
+    background-color: #e65c00;
+}
+
+.service-card-arrow-button img {
+    width: 20px; /* Size of the arrow icon inside the button */
+    height: 20px;
+    filter: invert(100%); /* Make arrow white if it's black */
+}
+
+
+
+
+/* -------------------------------------- */
+/* Achievements Section Styles            */
+/* -------------------------------------- */
+.achievements-section {
+    display: flex;
+    flex-direction: column; /* Stacks the top-row and the grid vertically */
+    align-items: flex-start;
+    justify-content: center;
+    padding: 40px 20px; /* Top/bottom padding, horizontal padding for content */
+    background-color: #fff; /* White background as per screenshot */
+    width: 100%;
+    box-sizing: border-box;
+    gap: 40px; /* Space between the top text block and the cards grid */
+    flex-wrap: wrap; /* Allows the section itself to wrap if needed, though unlikely for its direct children here */
+}
+.achievements-header-content {
+    flex-direction: row;
+    display: flex;
+    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+    align-items: center; /* Vertically centers items in this row */
+    justify-content: center; /* Centers items horizontally if space allows */
+    width: 100%; /* Take full width of its parent (.achievements-section) */
+    margin-bottom: 40px; /* Space between header content and cards */
+}
+
+.achievements-top-row { /* New container for the heading and description, now side-by-side */
+    display: flex;
+    align-items: flex-start; /* Aligns items to the top within this row */
+    justify-content: center; /* Centers the two columns horizontally */
+    width: 100%; /* Takes full width of its parent */
+    max-width: 1200px;
+    gap: 40px; /* Space between the left heading column and the right description column */
+    flex-wrap: wrap; /* Allows these two columns to stack on smaller screens */
+    margin-bottom: 20px; /* Space between this top row and the cards grid below */
+    text-align: left; /* Default text alignment for this row's children */
+}
+
+.achievements-left-column {
+    display: flex;
+    /* Contains "Our Achievements" tag and main heading */
+    flex: 1; /* Allows it to grow */
+    min-width: 350px; /* Minimum width before wrapping */
+    max-width: 450px;
+     /* max-width: 500px; */
+    text-align: left; /* Aligns text to the left within this column */
+    padding-right: 30px;
+    flex-direction: column;
+    align-items: flex-start;
+
+}
+
+.achievements-tag {
+    color: #ff6600; /* Orange color for "Our Achievements" tag */
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.achievements-left-column h3 {
+    font-size: 2.8em;
+    color: #333;
+    line-height: 1.2;
+    /* text-align: left; */
+    margin-top: 0;
+    margin-bottom: 0; /* No bottom margin here, spacing handled by parent gap */
+    font-weight: 700;
+}
+
+.achievements-left-column .highlight {
+    color: #ff6600;
+}
+
+.achievements-right-description-column { /* New column for the descriptive text */
+    flex: 1; /* Allows it to grow */
+    /* flex-direction: column; */
+    min-width: 350px; /* Minimum width before wrapping */
+    max-width: 600px; /* Max width for the description column */
+    text-align: left; /* Aligns text to the left within this column */
+    padding-left: 20px; /* Space between description and heading */
+    /* display: flex; Use flex to align its content if needed */
+    /* align-items: center; Vertically center description with heading */
+}
+
+.achievements-description-text { /* Style for the description text itself */
+    font-size: 1em;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 0; /* No bottom margin */
+}
+
+.achievements-right-grid { /* Container for the three percentage cards */
+    flex: none; /* Prevents it from growing/shrinking with flex:1 */
+    width: 100%; /* Takes full width of its parent */
+    max-width: 900px; /* Limits the overall width of the grid on large screens */
+    display: grid; /* Use CSS Grid for the cards */
+    grid-template-columns: repeat(3, 1fr); /* Responsive grid columns */
+    gap: 30px; /* Space between grid items */
+    padding: 0 20px; /* Add some horizontal padding to the grid itself */
+    box-sizing: border-box; /* Include padding in width */
+    display: grid;
+    margin: 0 150px;
+    /* align-items: center; */
+    /* justify-content: space-between; */
+}
+
+.achievement-card {
+    background-color: #f3efef;
+    border: 1px solid #eee; /* Light border */
+    border-radius: 15px; /* Rounded corners */
+    padding: 20px; /* Internal padding for card content */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); /* Soft shadow */
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    align-items: center; /* Horizontally center content within the card */
+    justify-content: center; /* Vertically center content within the card */
+    text-align: center; /* Center text */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    min-height: 180px; /* Ensure cards have a consistent height */
+
+    height: 150px;
+    width: 350px;
+    min-height: unset;
+    
+    
+}
+
+.achievement-card:hover {
+    transform: translateY(-15px); /* Slight lift on hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Enhanced shadow on hover */
+}
+
+.achievement-number {
+    font-size: 3em; /* Large font size for numbers */
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 0; /* Remove bottom margin */
+    line-height: 1; /* Ensure tight line height for numbers */
+}
+
+.achievement-description {
+    font-size: 0.95em;
+    color: #555;
+    line-height: 1.6;
+    margin-top: 5px; /* Add a small top margin for separation from number */
+}
+
+/* Styles for the animated number span */
+.animated-number {
+    display: inline-block; /* Ensures it respects margins/paddings if any */
+}
+
+
+/* -------------------------------------- */
+/* Why Choose Us Section Styles (NEW)     */
+/* -------------------------------------- */
+.why-choose-us-section {
+    display: flex; /* Two-column layout */
+    align-items: center; /* Vertically center content */
+    justify-content: center; /* Horizontally center content */
+    padding: 80px 50px; /* Top/bottom padding, horizontal padding for content */
+    background-color: #FFF4F3; /* Light background as per screenshot */
+    width: 100%;
+    box-sizing: border-box;
+    gap: 60px; /* Space between the left content column and the right image column */
+    flex-wrap: wrap; /* Allow columns to wrap on smaller screens */
+}
+
+.why-choose-us-content-left {
+    flex: 1; /* Allows left content column to grow */
+    min-width: 350px; /* Minimum width before wrapping */
+    max-width: 600px; /* Max width for readability */
+    text-align: left; /* Align text to the left */
+    padding-right: 20px; /* Space from the image */
+}
+
+.why-choose-us-tag {
+    color: #ff6600; /* Red/Orange color for "Why Choose Us" tag */
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.why-choose-us-content-left h2 {
+    font-size: 2.5em;
+    color: #333;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.why-choose-us-content-left .highlight {
+    color: #ff6600; /* Highlight color for "partner for businesses" */
+}
+
+.why-choose-us-description {
+    font-size: 1em;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.why-choose-us-features-row {
+    display: flex; /* Layout for the two feature cards */
+    gap: 20px; /* Space between feature cards */
+    margin-bottom: 30px;
+    flex-wrap: wrap; /* Allow feature cards to stack on smaller screens */
+}
+
+.why-choose-us-feature-card {
+    flex: 1; /* Allows feature cards to grow */
+    min-width: 180px; /* Minimum width for each feature card */
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align icon and text to the left */
+    text-align: left;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.why-choose-us-feature-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.feature-card-icon {
+    width: 40px; /* Size of the icon */
+    height: 40px;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+.why-choose-us-feature-card p {
+    font-size: 0.95em;
+    color: #333;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.why-choose-us-button {
+    background-color: #ff6600;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.why-choose-us-button:hover {
+    background-color: #e65c00;
+    transform: translateY(-2px);
+}
+
+.why-choose-us-image-right {
+    flex: 1.5; /* Allows image column to grow more than content */
+    min-width: 400px; /* Minimum width for the image column */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 20px; /* Space from the content */
+}
+
+.why-choose-us-main-image {
+    max-width: 100%; /* Ensure image is responsive */
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Stronger shadow for the image */
+    display: block;
+}
+
+CSS
+
+/* -------------------------------------- */
+/* Pricing Section Styles (NEW)           */
+/* -------------------------------------- */
+.pricing-section {
+    display: flex; /* Two-column layout */
+    align-items: flex-start; /* Align items to the top */
+    justify-content: center; /* Center content horizontally */
+    padding: 60px 20px; /* Top/bottom padding, horizontal padding for content */
+    background-color: #f8f8f8; /* White background as per screenshot */
+    width: 100%;
+    box-sizing: border-box;
+    gap: 60px; /* Space between the left content column and the right cards */
+    flex-wrap: wrap; /* Allow columns to wrap on smaller screens */
+}
+
+.pricing-text-content {
+    width: 100%;
+    max-width: 800px; /* Adjust max-width for pricing text */
+    text-align: center; /* Center align all text in the pricing header */
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.pricing-left-column {
+    flex: 1; /* Allows left content column to grow */
+    min-width: 350px; /* Minimum width before wrapping */
+    max-width: 600px; /* Max width for readability */
+    text-align: left; /* Align text to the left */
+    padding-right: 20px; /* Space from the pricing cards */
+}
+
+.pricing-tag {
+    color: #ff6600; /* Orange color for "Our Pricing" tag */
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.pricing-left-column h2 {
+    font-size: 2.5em;
+    color: #333;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.pricing-left-column .highlight {
+    color: #ff6600; /* Highlight color for "pricing packages" */
+}
+
+.pricing-description-text {
+    font-size: 1em;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 0; /* No bottom margin, as per screenshot spacing */
+}
+
+.pricing-right-cards {
+    flex: 1.5; /* Allows pricing cards column to grow more */
+    min-width: 600px; /* Minimum width for the cards container */
+    display: grid; /* Use CSS Grid for the cards */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid columns for cards */
+    gap: 30px; /* Space between pricing cards */
+    padding-left: 20px; /* Space from the left content */
+}
+
+.pricing-card {
+    background-color: #fff;
+    border: 1px solid #eee; /* Light border */
+    border-radius: 10px; /* Rounded corners */
+    padding: 30px; /* Internal padding for card content */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); /* Soft shadow */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally within card */
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pricing-card:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Enhanced shadow on hover */
+}
+
+.pricing-card-icon {
+    width: 80px; /* Size of the icon */
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 20px;
+}
+
+.plan-title {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.plan-price {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: #ff6600; /* Orange color for price */
+    margin-bottom: 20px;
+}
+
+.plan-price span {
+    font-size: 0.6em; /* Smaller size for "/Month" */
+    font-weight: 400;
+    color: #555;
+}
+
+.plan-features {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 30px;
+    width: 100%; /* Take full width to align checkmarks */
+    text-align: left; /* Align list items to the left */
+}
+
+/* Pricing Section Styles                 */
+/* -------------------------------------- */
+.pricing-section {
+    display: flex;
+    flex-direction: column; /* Stack the left column and the right cards vertically */
+    align-items: center; /* Center content horizontally within the section */
+    justify-content: center;
+    padding: 60px 20px; /* Top/bottom padding, horizontal padding for content */
+    background-color: #fff; /* White background as per screenshot */
+    width: 100%;
+    box-sizing: border-box;
+    gap: 40px; /* Space between the left text column and the right cards */
+    /* flex-wrap: wrap; - removed as flex-direction: column handles stacking */
+}
+
+.pricing-left-column {
+    flex: none; /* Remove flex grow/shrink */
+    width: 100%; /* Take full width of its parent */
+    max-width: 900px; /* Limit max width for readability on large screens */
+    text-align: left; /* Align text to the left as in the screenshot */
+    padding-right: 0; /* No right padding needed as it's full width */
+    margin-bottom: 20px; /* Space between this text block and the cards below */
+}
+
+.pricing-tag {
+    color: #ff6600; /* Orange color for "Our Pricing" tag */
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.pricing-left-column h2 {
+    font-size: 2.5em;
+    font-weight: 700; /* Ensure bold as in screenshot */
+    color: #333;
+    line-height: 1.2;
+    margin-bottom: 15px; /* Adjust spacing below heading */
+}
+
+.pricing-left-column .highlight {
+    color: #ff6600; /* Highlight color for "pricing packages" */
+}
+
+.pricing-description-text {
+    font-size: 1em;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 0; /* No bottom margin, spacing handled by parent gap */
+}
+
+.pricing-right-cards {
+    flex: none; /* Remove flex grow/shrink */
+    width: 100%; /* Take full width of its parent */
+    max-width: 900px; /* Limit overall width of the grid on large screens */
+    display: grid; /* Use CSS Grid for the cards */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjusted minmax for card width */
+    gap: 30px; /* Space between pricing cards */
+    padding-left: 0; /* No left padding needed as it's full width */
+    justify-content: center; /* Center cards within the grid container if they don't fill it */
+}
+
+.pricing-card {
+    background-color: #fff;
+    border: 1px solid #eee; /* Light border */
+    border-radius: 10px; /* Rounded corners */
+    padding: 30px; /* Internal padding for card content */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); /* Soft shadow */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally within card */
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pricing-card:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Enhanced shadow on hover */
+}
+
+.pricing-card-icon {
+    width: 80px; /* Size of the icon */
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 20px;
+}
+
+.plan-title {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.plan-price {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: #ff6600; /* Orange color for price */
+    margin-bottom: 20px;
+}
+
+.plan-price span {
+    font-size: 0.6em; /* Smaller size for "/Month" */
+    font-weight: 400;
+    color: #555;
+}
+
+.plan-features {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 30px;
+    width: 100%; /* Take full width to align checkmarks */
+    text-align: left; /* Align list items to the left */
+}
+
+.plan-features li {
+    position: relative;
+    padding-left: 30px; /* Space for the custom icon */
+    margin-bottom: 10px;
+    color: #555;
+    font-size: 1em;
+    line-height: 1.4;
+}
+
+.feature-checkmark,
+.feature-crossmark { /* Combined styles for both icons */
+    position: absolute;
+    left: 0;
+    top: 2px; /* Adjust vertical position of icon */
+    width: 20px; /* Size of icon */
+    height: 20px;
+    object-fit: contain;
+}
+
+
+.pricing-card-button {
+    background-color: #ff6600;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%; /* Full width button */
+    max-width: 200px; /* Max width for the button */
+}
+
+.pricing-card-button:hover {
+    background-color: #e65c00;
+    transform: translateY(-2px);
+}tures li {
+    position: relative;
+    padding-left: 30px; /* Space for the custom checkmark */
+    margin-bottom: 10px;
+    color: #555;
+    font-size: 1em;
+    line-height: 1.4;
+}
+
+.feature-checkmark {
+    position: absolute;
+    left: 0;
+    top: 2px; /* Adjust vertical position of checkmark */
+    width: 20px; /* Size of checkmark icon */
+    height: 20px;
+    object-fit: contain;
+}
+
+.pricing-card-button {
+    background-color: #ff6600;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%; /* Full width button */
+    max-width: 200px; /* Max width for the button */
+}
+
+.pricing-card-button:hover {
+    background-color: #e65c00;
+    transform: translateY(-2px);
+}
+/* src/components/Testimonials.css */
+
+.testimonials-section {
+    padding: 60px 15px; /* Adjust padding as needed */
+    background-color: #FFF4F3;/* Light background as per screenshot */
+    display: flex; /* Using flex to center content wrapper */
+    justify-content: center;
+    align-items: center;
+}
+
+.testimonials-content-wrapper {
+    display: flex; /* This is the main flex container for the two columns */
+    align-items: center; /* Vertically center the content in both columns */
+    max-width: 1000px; /* Max width of your content */
+    width: 100%;
+    gap: 40px; /* Space between the two columns */
+    flex-wrap: wrap; /* Allow columns to wrap on smaller screens */
+}
+
+/* Left Column - Text */
+.testimonials-text-column {
+    flex: 1; /* Allows this column to grow and shrink */
+    min-width: 300px; /* Minimum width before wrapping */
+    padding-right: 20px; /* Add some space if the card is too close */
+    text-align: left; /* Ensure text aligns left */
+}
+
+.testimonials-tag {
+    color: #ff6a00; /* Orange color from screenshot */
+    font-weight: 600;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+.testimonials-main-heading {
+    font-size: 2.4em; /* Adjust font size */
+    color: #333;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    max-width: 450px; /* Limit width for better readability */
+}
+
+.testimonials-description {
+    font-size: 0.95em;
+    color: #666;
+    line-height: 1.6;
+    max-width: 500px; /* Limit width for better readability */
+}
+
+/* Right Column - Testimonial Card */
+.testimonials-card-column {
+    flex: 1; /* Allows this column to grow and shrink */
+    min-width: 350px; /* Minimum width for the card before wrapping */
+    display: flex; /* Use flex to center the card within its column */
+    justify-content: center;
+    align-items: center;
+}
+
+.testimonial-card {
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    position: relative; /* Needed for positioning the "99" graphic */
+    overflow: hidden; /* Ensures the "99" graphic doesn't spill out */
+    max-width: 450px; /* Max width for the card */
+    width: 100%; /* Make it fill its container */
+    text-align: left; /* Ensure text inside card aligns left */
+}
+
+.stars {
+    color: #ffd700; /* Gold color for stars */
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    letter-spacing: 2px; /* Space out the stars a bit */
+}
+
+.card-text {
+    font-size: 1em;
+    color: #444;
+    line-height: 1.7;
+    margin-bottom: 30px;
+}
+
+.client-info {
+    display: flex;
+    align-items: center;
+}
+
+.client-avatar {
+    width: 50px; /* Larger avatar size */
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+    border: 3px solid #ff6a00; /* Orange border */
+}
+
+.client-name {
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+    font-size: 1.1em;
+}
+
+.client-designation {
+    color: #777;
+    font-size: 0.9em;
+    margin: 0;
+}
+
+/* "99" background graphic styling */
+.quote-number {
+    position: absolute;
+    bottom: 10px; /* Adjust vertical position */
+    right: 5px; /* Adjust horizontal position */
+    font-size: 50px; /* Large font size */
+    font-weight: bold;
+    color: rgba(220, 220, 220, 0.4); /* Faded light gray */
+    z-index: 1; /* Send it to the back */
+    line-height: 1; /* Prevent extra line height */
+    -webkit-user-select: none;
+    user-select: none; 
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 992px) {
+    .testimonials-content-wrapper {
+        flex-direction: column; /* Stack columns vertically */
+        align-items: center; /* Center items when stacked */
+        gap: 30px;
+    }
+
+    .testimonials-text-column,
+    .testimonials-card-column {
+        min-width: unset; /* Remove min-width to allow full width */
+        width: 100%; /* Take full width */
+        padding-right: 0; /* Remove right padding */
+        text-align: center; /* Center text on smaller screens */
+    }
+
+    .testimonials-main-heading,
+    .testimonials-description {
+        max-width: 100%; /* Allow headings/description to use full width */
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .testimonial-card {
+        padding: 30px;
+        max-width: 500px; /* Still limit max width for readability */
+    }
+
+    .quote-number {
+        font-size: 90px; /* Adjust size for smaller screens */
+        bottom: 2px;
+        right: 5px;
+    }
+}
+
+@media (max-width: 576px) {
+    .testimonials-section {
+        padding: 60px 15px;
+    }
+
+    .testimonials-main-heading {
+        font-size: 1.8em;
+    }
+
+    .card-text {
+        font-size: 1em;
+    }
+
+    .client-avatar {
+        width: 50px;
+        height: 50px;
+    }
+
+    .quote-number {
+        font-size: 120px;
+        bottom: -10px;
+        right: -10px;
+    }
+}
+
+
+/* src/components/Blogs.css */
+
+.blogs-section {
+    padding: 80px 20px; /* Ample padding for the section */
+    background-color: #ffffff; /* White background as per screenshot */
+    text-align: center; /* Default center align for overall section */
+}
+
+.blogs-header-wrapper {
+    display: grid; /* Using Grid for the header section */
+    grid-template-columns: 1fr 1fr; /* Two columns */
+    gap: 40px; /* Space between the heading text and the description */
+    max-width: 1200px; /* Max width of the content area */
+    margin: 0 auto 50px auto; /* Center the wrapper and add margin below it */
+    align-items: center; /* Vertically align items in the grid */
+    text-align: left; /* Reset text alignment for children */
+}
+
+
+
+.blogs-tag {
+    color: #ff6a00; /* Orange color */
+    font-weight: 600;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+.blogs-main-heading {
+    font-size: 2.5em;
+    color: #333;
+    line-height: 1.2;
+    max-width: 450px; /* Limit width for better readability */
+}
+
+.blogs-description {
+    font-size: 1em;
+    color: #666;
+    line-height: 1.6;
+    max-width: 600px; /* Limit width for better readability */
+    /* This description is on the right, so it should be left-aligned by default due to parent's text-align: left */
+}
+
+/* Blog Cards Grid */
+.blog-cards-grid {
+    display: grid;
+    /* For 3 cards in a row: repeat(3, 1fr) or auto-fit for responsiveness */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px; /* Space between the cards */
+    max-width: 1200px; /* Match the header wrapper's max-width */
+    margin: 0 auto; /* Center the grid */
+}
+
+/* Individual Blog Card Styling */
+.blog-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Ensures image corners are rounded with border-radius */
+    display: flex;
+    flex-direction: column; /* Stack image, text, and button */
+    text-align: left; /* Align content inside the card to the left */
+}
+
+.blog-image {
+    width: 100%;
+    height: 200px; /* Fixed height for consistent image size */
+    object-fit: cover; /* Ensures image covers the area without distortion */
+    border-top-left-radius: 12px; /* Match card border-radius */
+    border-top-right-radius: 12px;
+}
+
+.card-content {
+    padding: 25px; /* Padding for text content inside the card */
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Allows content to push button to bottom if varied text length */
+}
+
+.card-title {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 15px;
+    min-height: 50px; /* Give a min-height to ensure consistent title area */
+}
+
+.card-excerpt {
+    font-size: 0.9em;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    flex-grow: 1; /* Allows excerpt to take up available space */
+    /* You might want to limit lines of text for consistency, e.g.,
+       display: -webkit-box;
+       -webkit-line-clamp: 3;
+       -webkit-box-orient: vertical;
+       overflow: hidden;
+       text-overflow: ellipsis;
+    */
+}
+
+.read-more-button {
+    background-color: #ff6a00; /* Orange color */
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 600;
+    align-self: flex-start; /* Align button to the left */
+    transition: background-color 0.3s ease;
+}
+
+.read-more-button:hover {
+    background-color: #e65c00; /* Slightly darker orange */
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 992px) {
+    .blogs-header-wrapper {
+        grid-template-columns: 1fr; /* Stack header items on smaller screens */
+        text-align: center;
+        gap: 20px;
+    }
+
+    .blogs-main-heading {
+        max-width: 100%; /* Allow it to take full width */
+        margin: 0 auto; /* Center the heading */
+    }
+
+    .blogs-description {
+        max-width: 100%; /* Allow it to take full width */
+        margin: 0 auto; /* Center the description */
+    }
+
+    .blog-cards-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjust minmax for fewer columns */
+    }
+}
+
+@media (max-width: 576px) {
+    .blogs-section {
+        padding: 50px 15px;
+    }
+
+    .blogs-main-heading {
+        font-size: 2em;
+    }
+
+    .card-title {
+        font-size: 1.1em;
+    }
+
+    .blog-image {
+        height: 180px; /* Slightly smaller image height */
+    }
+}
+
+
+/* src/components/FAQ.css */
+
+.faq-section {
+    padding: 80px 20px; /* Adjust padding as needed */
+    background-color: #f8f8f8; /* Light background as per screenshot */
+    text-align: center; /* Default center alignment for overall section */
+}
+
+.faq-header-wrapper {
+    display: grid;
+    /* Define grid for the header: left content, right description */
+    grid-template-columns: 1fr 1fr; /* Two columns for desktop */
+    gap: 40px; /* Space between columns */
+    max-width: 1200px; /* Max width of your content area */
+    margin: 0 auto 50px auto; /* Center wrapper and add margin below */
+    align-items: flex-start; /* Align items to the top */
+    text-align: left; /* Reset text alignment for children */
+}
+
+
+
+.faq-tag {
+    color: #ff6a00; /* Orange color */
+    font-weight: 600;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+.faq-main-heading {
+    font-size: 2.5em;
+    color: #333;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.faq-left-description {
+    font-size: 1em;
+    color: #666;
+    line-height: 1.6;
+}
+
+.faq-header-right-description {
+    font-size: 1em;
+    color: #666;
+    line-height: 1.6;
+    /* The screenshot shows this text aligning roughly with the top of the heading */
+    padding-top: 50px; /* Adjust this value to visually align it with the heading if needed */
+}
+
+/* FAQ Columns Grid */
+.faq-columns-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns for the FAQ items */
+    gap: 30px; /* Space between the two main FAQ columns */
+    max-width: 1200px; /* Match header wrapper's max-width */
+    margin: 0 auto; /* Center the grid */
+}
+
+.faq-column {
+    display: flex; /* Use flexbox to stack accordion items within each column */
+    flex-direction: column;
+    gap: 15px; /* Space between individual accordion items */
+}
+
+/* Accordion Item Styling */
+.accordion-item {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden; /* Ensures content respects border-radius */
+}
+
+.accordion-header {
+    width: 100%;
+    padding: 20px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #333;
+    transition: background-color 0.3s ease;
+}
+
+.accordion-header:hover {
+    background-color: #f5f5f5;
+}
+
+.accordion-question {
+    flex-grow: 1; /* Allows question text to take up available space */
+    margin-right: 15px; /* Space between text and icon */
+}
+
+.accordion-icon {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #ff6a00; /* Orange icon */
+}
+
+.accordion-content {
+    padding: 0 25px 20px; /* Padding for the content when open */
+    font-size: 0.95em;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 992px) {
+    .faq-header-wrapper {
+        grid-template-columns: 1fr; /* Stack header items on smaller screens */
+        text-align: center;
+        gap: 20px;
+    }
+
+    .faq-header-left,
+    .faq-header-right-description {
+        /* On small screens, both should be full width and centered */
+        max-width: 100%;
+        margin: 0 auto;
+        padding-top: 0; /* Remove specific top padding when stacked */
+    }
+
+    .faq-columns-grid {
+        grid-template-columns: 1fr; /* Stack FAQ columns on smaller screens */
+        gap: 20px; /* Adjust gap */
+    }
+}
+
+@media (max-width: 576px) {
+    .faq-section {
+        padding: 50px 15px;
+    }
+
+    .faq-main-heading {
+        font-size: 2em;
+    }
+
+    .accordion-header {
+        padding: 15px 20px;
+        font-size: 1em;
+    }
+
+    .accordion-content {
+        padding: 0 20px 15px;
+        font-size: 0.9em;
+    }
+}
+
+
+/* src/components/Contact.css */
+
+.contact-section {
+    padding: 80px 20px; /* Ample padding for the section */
+    background-color: #ffffff; /* White background as per screenshot */
+    text-align: center; /* Default center align for overall section */
+}
+
+.contact-content-grid {
+    display: grid;
+    /* Two columns for desktop: form on left, map on right */
+    grid-template-columns: 1.2fr 1fr; /* Adjust ratios as needed (form slightly wider) */
+    gap: 50px; /* Space between the form and the map */
+    max-width: 1200px; /* Max width of your content area */
+    margin: 0 auto; /* Center the grid */
+    align-items: flex-start; /* Align content to the top of each column */
+    text-align: left; /* Reset text alignment for children */
+}
+
+/* Left Column: Contact Form */
+.contact-form-column {
+    padding-right: 20px; /* Add some space if needed for visual balance */
+}
+
+.contact-tag {
+    color: #ff6a00; /* Orange color */
+    font-weight: 600;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+.contact-main-heading {
+    font-size: 2.5em;
+    color: #333;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.contact-description {
+    font-size: 1em;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 40px;
+}
+
+.contact-form {
+    display: flex;
+    flex-wrap: wrap; /* Allows form groups to wrap */
+    gap: 20px; /* Space between form fields */
+}
+
+.form-group {
+    flex: 1 1 calc(50% - 10px); /* Two columns, considering gap */
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group.full-width {
+    flex: 1 1 100%; /* Make this group take full width */
+}
+
+.form-group label {
+    font-size: 0.9em;
+    color: #555;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group select,
+.form-group textarea {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    color: #333;
+    width: 100%; /* Ensure input takes full width of its group */
+    box-sizing: border-box; /* Include padding/border in element's total width/height */
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #999;
+}
+
+.form-group textarea {
+    resize: vertical; /* Allow vertical resizing */
+}
+
+.send-message-button {
+    background-color: #333; /* Dark background for the button */
+    color: #ffffff;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    align-self: flex-start; /* Align button to the left */
+    transition: background-color 0.3s ease;
+    margin-top: 20px; /* Space above button */
+}
+
+.send-message-button:hover {
+    background-color: #555;
+}
+
+/* Right Column: Embedded Map */
+.contact-map-column {
+    position: relative; /* For positioning map info box */
+    height: 100%; /* Ensure it takes available height */
+    min-height: 450px; /* Ensure a minimum height for the map container */
+    background-color: #f0f0f0; /* Fallback/loading background */
+    border-radius: 12px; /* Match design */
+    overflow: hidden; /* Ensure map respects border radius */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.contact-map-column iframe {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px; /* Apply border radius to iframe as well */
+}
+
+.map-info-box {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 10; /* Ensure it's above the map */
+    text-align: left;
+}
+
+.map-info-box h4 {
+    margin: 0 0 5px 0;
+    font-size: 1.1em;
+    color: #333;
+}
+
+.map-info-box p {
+    margin: 0 0 10px 0;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.map-info-box a {
+    color: #ff6a00;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9em;
+}
+
+.map-info-box a:hover {
+    text-decoration: underline;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 992px) {
+    .contact-content-grid {
+        grid-template-columns: 1fr; /* Stack columns on smaller screens */
+        gap: 40px;
+    }
+
+    .contact-form-column {
+        padding-right: 0;
+    }
+
+    .contact-form {
+        flex-direction: column; /* Stack form inputs on very small screens */
+        gap: 15px;
+    }
+
+    .form-group,
+    .form-group.full-width {
+        flex: 1 1 100%; /* Each form group takes full width */
+    }
+
+    .contact-map-column {
+        min-height: 350px; /* Adjust map height for smaller screens */
+    }
+
+    .map-info-box {
+        top: 15px;
+        left: 15px;
+        padding: 10px 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .contact-section {
+        padding: 50px 15px;
+    }
+
+    .contact-main-heading {
+        font-size: 2em;
+    }
+}
+
+/* src/components/Footer.css */
+
+.footer-section {
+    background-color: #000000; /* Dark background as per screenshot */
+    color: #f0f0f0; /* Light text color for contrast */
+    padding: 60px 20px 20px; /* Top, horizontal, and bottom padding */
+    font-size: 0.9em; /* Overall smaller text in footer */
+}
+
+.footer-content-grid {
+    display: grid;
+    /* Define columns for desktop: roughly 5 columns */
+    grid-template-columns: 1.2fr repeat(4, 1fr); /* Logo column slightly wider, then 4 equal columns */
+    gap: 40px; /* Space between columns */
+    max-width: 1200px; /* Match your main content width */
+    margin: 0 auto 40px auto; /* Center the grid and add margin below */
+    text-align: left; /* Align text within columns to the left */
+}
+
+/* .footer-logo-column { */
+    /* Contains logo and tagline */
+/* } */
+
+.footer-logo {
+    height: 40px; /* Adjust logo size as needed */
+    margin-bottom: 10px;
+}
+
+.footer-tagline {
+    font-size: 0.9em;
+    color: #bbbbbb;
+    line-height: 1.5;
+}
+
+.footer-heading {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.footer-links {
+    list-style: none; /* Remove bullet points */
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 10px; /* Space between list items */
+}
+
+.footer-links a {
+    color: #bbbbbb; /* Lighter grey for links */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #ff6a00; /* Orange on hover */
+}
+
+.contact-info-column p {
+    margin-bottom: 10px; /* Space between paragraphs in contact info */
+    color: #bbbbbb;
+    line-height: 1.5;
+}
+
+.contact-info-column a {
+    color: #bbbbbb;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-info-column a:hover {
+    color: #ff6a00;
+    text-decoration: underline;
+}
+
+.footer-bottom {
+    border-top: 1px solid #444; /* Separator line */
+    padding-top: 20px;
+    text-align: center;
+    color: #888; /* Slightly darker grey for copyright */
+    font-size: 0.85em;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 992px) {
+    .footer-content-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Auto-fit for columns */
+        gap: 30px; /* Adjust gap */
+    }
+
+    .footer-logo-column {
+        grid-column: span 2; /* Make logo column span 2 columns on medium screens */
+        text-align: center;
+    }
+
+    .footer-logo {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-content-grid {
+        grid-template-columns: 1fr; /* Stack all columns on small screens */
+        text-align: center; /* Center content when stacked */
+    }
+
+    .footer-logo-column {
+        grid-column: auto; /* Reset column span */
+    }
+
+    .footer-links,
+    .contact-info-column p,
+    .contact-info-column a {
+        /* Center lists and contact info */
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-section {
+        padding: 40px 15px 15px;
+    }
+    .footer-heading {
+        font-size: 1em;
+    }
+}
