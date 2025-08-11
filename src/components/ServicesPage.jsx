@@ -1,6 +1,6 @@
 import React from 'react';
 // Import the CSS for both sections
-import './Services.css';
+import './services.css';
 
 const ServicesPage = () => {
   const wordpressLogo = "https://himtreasure.com/wp-content/uploads/2024/02/wordpress.png";
