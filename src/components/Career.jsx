@@ -1,8 +1,11 @@
 import React from 'react';
 import './Career.css'; // All styles for the career page
 import Footer from './Footer'; // Assuming you'll create a Footer component
-
 // Component for the top banner with background image
+import clockimage from '../assets/clock.png';
+import stairs from '../assets/stairs-line.png';
+import stars from '../assets/star-fill.png';
+import Wallet from '../assets/wallet-3-fill.png'
 const CareerHero = () => (
   <section className="career-hero">
     <div className="container">
@@ -16,22 +19,22 @@ const ValuePropSection = () => (
   <section className="value-prop-section">
     <div className="container value-prop-grid">
       <div className="value-prop-item">
-        <img src="/images/career-growth.png" alt="Career Growth Icon" className="value-prop-icon" />
+        <img src={stairs} alt="" className="value-prop-icon" />
         <h3>Career Growth</h3>
         <p>Innovation, learning, mentorship, and impactful experiences.</p>
       </div>
       <div className="value-prop-item">
-        <img src="/images/innovate.png" alt="Innovate Icon" className="value-prop-icon" />
+        <img src={stars} alt="" className="value-prop-icon" />
         <h3>Innovate</h3>
         <p>Be a part of a team that creates groundbreaking solutions everyday.</p>
       </div>
       <div className="value-prop-item">
-        <img src="../assets/cross.png" alt="Work Culture Icon" className="value-prop-icon" />
+        <img src={clockimage} alt="" className="value-prop-icon" />
         <h3>Work Culture</h3>
         <p>Enjoy celebrations for birthdays, milestones, and project successes.</p>
       </div>
       <div className="value-prop-item">
-        <img src="/images/smart-salary.png" alt="Smart Salary Icon" className="value-prop-icon" />
+        <img src={Wallet} alt="Smart Salary Icon" className="value-prop-icon" />
         <h3>Smart Salary</h3>
         <p>Competitive compensation where your hard work pays off.</p>
       </div>

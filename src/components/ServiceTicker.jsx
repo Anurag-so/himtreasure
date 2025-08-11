@@ -1,5 +1,5 @@
 import React from 'react';
-import './ServiceTicker.css'; 
+import '../index.css'; 
 
 const ServiceTicker = () => {
     // The content for your continuously moving strap

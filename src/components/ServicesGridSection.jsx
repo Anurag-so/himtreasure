@@ -5,7 +5,7 @@ import '../index.css'; // Import the merged CSS file
 // For demonstration, I'm using placeholder image URLs. You should replace these.
 import iconDesign from '../assets/icon-design.png'; // Example icon for UI/UX Design
 import iconEcommerce from '../assets/icon-design.png'; // Example icon for E-Commerce Development
-import iconArrowRight from '../assets/icon-design.png'; // Example arrow icon
+import iconArrowRight from '../assets/arrow-right-line.png'; // Example arrow icon
 
 const ServicesGridSection = () => {
     const services = [

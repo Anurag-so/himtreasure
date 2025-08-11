@@ -16,19 +16,19 @@ const Navbar = () => {
     // If you create dedicated pages for these services, update these links with actual paths.
     const serviceOptions = [
         [
-            { name: "Website Designing", link: "./WebDesigningPage.jsx" },
-            { name: "Web Development", link: "#" },
+            { name: "Website Designing", link: "./WebDesigningPage" },
+            { name: "Web Development", link: "./WebDevelopment" },
             { name: "Mobile App Development", link: "#" },
             { name: "Graphics Design", link: "#" },
         ],
         [
-            { name: "Mern Stack", link: "#" },
+            { name: "Mern Stack", link: "/Mernstack" },
             { name: "Content Strategy", link: "#" },
             { name: "Frame Work", link: "#" },
             { name: "CMS Solutions", link: "#" },
         ],
         [
-            { name: "Landing Page", link: "#" },
+            { name: "Landing Page", link: "./LandingPage" },
             { name: "Ecommerce", link: "#" },
             { name: "Digital Marketing", link: "#" },
             { name: "Web Application Development", link: "#" },
@@ -40,9 +40,7 @@ const Navbar = () => {
         <header className="navbar-container">
             <div className="navbar-logo">
                 {/* Link the logo to the home page */}
-                <Link to="/">
-                    <img src={himtreasuresLogo} alt="Himtreasures Logo" />
-                </Link>
+                <Link to="/"><img src={himtreasuresLogo} alt="Himtreasures Logo" /> </Link>
             </div>
             <nav className="navbar-nav">
                 <ul className="navbar-links">
@@ -55,9 +53,12 @@ const Navbar = () => {
                         onMouseLeave={() => setIsDropdownOpen(false)}
                     >
                         {/* This 'a' tag is kept for dropdown functionality, not for navigation to a dedicated 'Service' page */}
-                        <a href="#" className="dropbtn" onClick={(e) => e.preventDefault()}>Service <i className={`arrow ${isDropdownOpen ? 'up' : 'down'}`}></i></a>
+                        <Link to="/Service" className="dropbtn">
+                        Service <i className={`arrow ${isDropdownOpen ? 'up' : 'down'}`}></i>
+                    </Link>
                         {isDropdownOpen && <Dropdown options={serviceOptions} />}
                     </li>
+                    
                     {/* Assuming these also navigate to dedicated pages */}
                     <li><Link to="/career">Career</Link></li>
                     <li><Link to="/Portfolio">Portfolio</Link></li>

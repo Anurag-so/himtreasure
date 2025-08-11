@@ -1,10 +1,10 @@
 import React from 'react';
 import './WebDesigningPage.css'; // Link to the page-specific CSS
-
+import Navbar from './Navbar';
 const WebDesigningPage = () => {
   return (
     <div className="web-design-page">
-      <Navbar /> {/* Render the Navbar */}
+      {/* <Navbar /> Render the Navbar */}
 
       <main>
         {/* Hero Section */}
@@ -97,13 +97,7 @@ const WebDesigningPage = () => {
       </main>
 
       {/* Floating WhatsApp Icon - positioned using fixed CSS */}
-      <div className="whatsapp-float-icon">
-        <a href="https://wa.me/yourphonenumber" target="_blank" rel="noopener noreferrer">
-          {/* Replace with your actual WhatsApp icon */}
-          <img src="/images/whatsapp-icon.png" alt="WhatsApp" />
-        </a>
-      </div>
-
+     
       {/* You would typically have a Footer component here */}
       {/* <Footer /> */}
     </div>

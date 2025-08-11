@@ -103,6 +103,8 @@ function Portfolio() {
       threshold: 0.1 // Trigger when 10% of the item is visible
     });
 
+     const currentobservedMap = observedMap.current;
+
     // Observe each current portfolio item
     // Make sure we only observe elements that are actually rendered
     itemRefs.current.forEach(itemRef => {
@@ -114,7 +116,7 @@ function Portfolio() {
     return () => {
       // Disconnect observer on unmount or when filteredItems change
       observer.disconnect();
-      observedMap.current.clear(); // Clear map on disconnect
+      currentobservedMap.clear(); // Clear map on disconnect
     };
   }, [filteredItems, observerCallback]); // Re-run when filteredItems (new set of items) changes
 

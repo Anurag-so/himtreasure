@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../index.css'; // Import the merged CSS file
 import whatsappIcon from '../assets/whatsapp-small.png';
-import supportIcon from '../assets/whatsapp-small.png';
+// import supportIcon from '../assets/whatsapp-small.png';
 import closeIcon from '../assets/whatsapp-small.png'; // Generic close icon for the main button
 import WhatsAppModal from './WhatsAppModal'; // Import the modal component
 
@@ -33,9 +33,12 @@ const FloatingHelpButton = () => {
                 <button onClick={isModalOpen ? closeModal : openModal} className="whatsapp-button">
                     <img src={isModalOpen ? closeIcon : whatsappIcon} alt={isModalOpen ? "Close" : "WhatsApp"} className="whatsapp-icon" />
                 </button>
-                <button className="support-icon-button">
+                <a href="#privacy-terms" className="privacy-terms">
+  privacy terms
+</a>
+                {/* <button className="support-icon-button">
                     <img src={supportIcon} alt="Support" className="support-icon" />
-                </button>
+                </button> */}
             </div>
         </div>
     );
